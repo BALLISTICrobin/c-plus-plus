@@ -1,5 +1,0 @@
-order of constructor called:
-A 
-B 
-C 
-myclass
