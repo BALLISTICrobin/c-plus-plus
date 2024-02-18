@@ -66,28 +66,32 @@ public:
 
     ll customProbe(string key, ll i)
     {
-        return ((hashFunction == 1 ? hash1(key) : hash2(key)) + c1*i * auxHash(key) + c2*i*i) % N;
+        return ((hashFunction == 1 ? hash1(key) : hash2(key)) + c1 * i * auxHash(key) + c2 * i * i) % N;
     }
 
     void insert(string key, ll value)
     {
-        if ((size / N > 0.5) || (size > 100 && probes / (0.1 * N) > 2))
+        if ((size / N > 0.5) || (probes / size > 2))
             reHash(1);
 
         ll i = 0, h, prev, offset = 0;
 
         h = customProbe(key, i);
+        prev = h;
+        // if (hashTable[h].key != "")
+        //     collisions++;
+        if (hashTable[h].key == "")
+            probes++;
         while (hashTable[h].key != "")
         {
-            prev = h;
+            collisions++;
             h = (offset + customProbe(key, ++i)) % N;
             if (h == prev)
             {
                 offset++;
                 i = 0;
             }
-            // probes++;
-            collisions++;
+            probes++;
         }
 
         hashTable[h] = Node(key, value);
@@ -105,7 +109,8 @@ public:
         hashTable.clear();
         hashTable.resize(N);
         size = 0;
-
+        collisions = 0;
+        probes = 0;
         for (ll i = 0; i < oldN; i++)
         {
             if (temp[i].key != "")
@@ -140,7 +145,6 @@ public:
 
         return -1;
     }
-
 
     void remove(string key)
     {

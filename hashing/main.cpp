@@ -64,7 +64,6 @@ int main(int argc, char const *argv[])
     }
 
     vector<string> generatedStringsVector(generatedStrings.begin(), generatedStrings.end());
-
     long long size[3] = {5000, 10000, 20000};
     double report[3][3][2][2];
     freopen("hashing_report.txt", "w", stdout);
@@ -78,7 +77,7 @@ int main(int argc, char const *argv[])
             {
                 obj.insert(k, obj.size + 1);
             }
-
+            obj.probes = 0;
             for (ll m = 0; m < searchRandomly; m++)
             {
                 ll index = rand() % numberOfStringsToGenerate;
@@ -95,15 +94,18 @@ int main(int argc, char const *argv[])
             {
                 obj.insert(k, obj.size + 1);
             }
-
+            obj.probes = 0;
             for (ll m = 0; m < searchRandomly; m++)
             {
                 ll index = rand() % numberOfStringsToGenerate;
                 obj.find(generatedStringsVector[index]);
             }
 
+            double avgProbeCount = (double)obj.probes / searchRandomly;
+            // if(avgProbeCount > 2)
+            //     obj.reHash(1);
             report[n][1][j - 1][0] = obj.collisions;
-            report[n][1][j - 1][1] = (double)obj.probes / searchRandomly;
+            report[n][1][j - 1][1] = avgProbeCount;
         }
         for (ll j = 1; j <= 2; j++)
         {
@@ -112,15 +114,17 @@ int main(int argc, char const *argv[])
             {
                 obj.insert(k, obj.size + 1);
             }
-
+            obj.probes = 0;
             for (ll m = 0; m < searchRandomly; m++)
             {
                 ll index = rand() % numberOfStringsToGenerate;
                 obj.find(generatedStringsVector[index]);
             }
-
+            double avgProbeCount = (double)obj.probes / searchRandomly;
+            // if(avgProbeCount > 2)
+            //     obj.reHash(1);
             report[n][2][j - 1][0] = obj.collisions;
-            report[n][2][j - 1][1] = (double)obj.probes / searchRandomly;
+            report[n][2][j - 1][1] = avgProbeCount;
         }
         n++;
     }

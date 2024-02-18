@@ -43,7 +43,7 @@ class chaining
     }
 
 public:
-    ll N, size, collisions, probes,initialSize;
+    ll N, size, collisions, probes, initialSize;
     vector<list<Node>> hashTable;
     ll hashFunction;
     ll numOfInsertion;
@@ -55,7 +55,7 @@ public:
         this->N = nextPrime(N);
         initialSize = this->N;
         hashTable.resize(this->N);
-        size = collisions = probes = numOfInsertion = 0;
+        size = collisions = probes = numOfInsertion = numOfDeletetion= 0;
         this->hashFunction = hashFunction;
         this->chainLength = chainLength;
         this->maxChainLength = 0;
@@ -78,6 +78,11 @@ public:
         if (hashTable[i].size() > 0)
         {
             collisions += hashTable[i].size();
+            probes += hashTable[i].size();
+        }
+        else
+        {
+            probes++;
         }
 
         hashTable[i].push_back(Node(key, value));
@@ -116,9 +121,9 @@ public:
 
     void reHash(ll n)
     {
+        // cout<<"rehashing"<<endl;
         ll oldN = N, oldCollisions = collisions;
-        
-        
+
         findMaxChainlength();
         if (n == 1)
         {
@@ -128,12 +133,12 @@ public:
             {
                 N = nextPrime(N * 2);
                 std::cout << "before rehashing from size: " << oldN << " to size: " << N << endl;
-                std::cout << "load factor: " << (double)size / N << " max chain length: " << maxChainLength << endl;
+                std::cout << "avg probe count: " << (double)probes / size << " load factor: " << (double)size / N << " max chain length: " << maxChainLength << endl;
             }
             else
             {
                 return;
-            }   
+            }
         }
         else if (n == 2)
         {
@@ -141,12 +146,12 @@ public:
             if (maxChainLength < 0.8 * chainLength)
             {
                 N = nextPrime(N / 2);
-                if(N<initialSize)
+                if (N < initialSize)
                 {
                     return;
                 }
                 std::cout << "before rehashing from size: " << oldN << " to size: " << N << endl;
-                std::cout << "load factor: " << (double)size / N << " max chain length: " << maxChainLength << endl;
+                std::cout << "avg probe count: " << (double)probes / size << "load factor: " << (double)size / N << " max chain length: " << maxChainLength << endl;
             }
             else
             {
@@ -158,24 +163,26 @@ public:
         hashTable.clear();
         hashTable.resize(N);
         size = 0;
+        collisions = 0;
+        probes = 0;
         for (ll i = 0; i < oldN; i++)
         {
             for (auto it : temp[i])
             {
                 insert(it.key, it.value);
-                if(n==1)
+                if (n == 1)
                 {
-                    numOfInsertion=0;
+                    numOfInsertion = 0;
                 }
-                else if(n==2)
+                else if (n == 2)
                 {
-                    numOfDeletetion=0;
+                    numOfDeletetion = 0;
                 }
             }
         }
         findMaxChainlength();
         std::cout << "after rehashing from size: " << oldN << " to size: " << N << endl;
-        std::cout << "load factor: " << (double)size / N << " max chain length: " << maxChainLength << endl;
+        std::cout<<"avg probe count: "<<(double)probes/size << "load factor: " << (double)size / N << " max chain length: " << maxChainLength << endl;
     }
 
     void findMaxChainlength()
