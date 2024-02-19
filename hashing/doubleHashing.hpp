@@ -54,13 +54,14 @@ public:
     ll N, size, collisions, probes;
     vector<Node> hashTable;
     ll hashFunction;
-
+    ll numOfInsertion;
     Doublehashing(ll N, ll hashFunction)
     {
         this->N = nextPrime(N);
         hashTable.resize(this->N);
         size = collisions = probes = 0;
         this->hashFunction = hashFunction;
+        this->numOfInsertion = 0;
     }
 
     ll doubleHash(string key, ll i)
@@ -70,7 +71,7 @@ public:
 
     void insert(string key, ll value)
     {
-        if ((size / N > 0.5) || ( probes / size > 2))
+        if ((size / N > 0.5) || (numOfInsertion>1000 && probes / size > 2))
             reHash(1);
 
         ll i = 0, h, prev, offset = 0;
@@ -96,6 +97,7 @@ public:
 
         hashTable[h] = Node(key, value);
         size++;
+        numOfInsertion++;
     }
 
     void reHash(ll n)
@@ -111,10 +113,14 @@ public:
         size = 0;
         collisions =0;
         probes = 0;
+        numOfInsertion = 0;
         for (ll i = 0; i < oldN; i++)
         {
             if (temp[i].key != "")
-                insert(temp[i].key, temp[i].value);
+                {
+                    insert(temp[i].key, temp[i].value);
+                    numOfInsertion =0;
+                }
         }
     }
 
@@ -124,7 +130,7 @@ public:
         h = doubleHash(key, i);
 
         prev = h;
-        while (hashTable[h].key != "" && i < N)
+        while (i < N)
         {
                 // probes++;
             if (hashTable[h].key == key)
@@ -132,6 +138,8 @@ public:
                 probes++;
                 return hashTable[h].value;
             }
+            else
+                probes++;
             h = (offset + doubleHash(key, ++i)) % N;
 
             if (h == prev)
@@ -139,8 +147,7 @@ public:
                 offset++;
                 i = 0;
             }
-            else
-                probes++;
+            
         }
 
         return -1;

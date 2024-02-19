@@ -1,56 +1,24 @@
 before rehashing from size: 5003 to size: 10007
-avg probe count: 1.10255 load factor: 0.423903 max chain length: 6
+avg probe count: 1.30817 load factor: 0.807435 max chain length: 8
 after rehashing from size: 5003 to size: 10007
-avg probe count: 1.03041load factor: 0.423903 max chain length: 6
-before rehashing from size: 10007 to size: 20021
-avg probe count: 1.03224 load factor: 0.216922 max chain length: 6
-after rehashing from size: 10007 to size: 20021
-avg probe count: 1.00484load factor: 0.216922 max chain length: 3
-before rehashing from size: 20021 to size: 40063
-avg probe count: 1.03208 load factor: 0.242019 max chain length: 6
-after rehashing from size: 20021 to size: 40063
-avg probe count: 1.01042load factor: 0.242019 max chain length: 4
+avg probe count: 1.08948 load factor: 0.807435 max chain length: 6
 before rehashing from size: 5003 to size: 10007
-avg probe count: 1.06494 load factor: 0.34316 max chain length: 6
+avg probe count: 1.24422 load factor: 0.726691 max chain length: 8
 after rehashing from size: 5003 to size: 10007
-avg probe count: 1.0166load factor: 0.34316 max chain length: 5
-before rehashing from size: 10007 to size: 20021
-avg probe count: 1.04933 load factor: 0.282503 max chain length: 6
-after rehashing from size: 10007 to size: 20021
-avg probe count: 1.0099load factor: 0.282503 max chain length: 4
-before rehashing from size: 10007 to size: 20021
-avg probe count: 1.0215 load factor: 0.176565 max chain length: 6
-after rehashing from size: 10007 to size: 20021
-avg probe count: 1.00453load factor: 0.176565 max chain length: 3
-before rehashing from size: 20021 to size: 40063
-avg probe count: 1.03208 load factor: 0.242019 max chain length: 6
-after rehashing from size: 20021 to size: 40063
-avg probe count: 1.01042load factor: 0.242019 max chain length: 4
-before rehashing from size: 10007 to size: 20021
-avg probe count: 1.04933 load factor: 0.282503 max chain length: 6
-after rehashing from size: 10007 to size: 20021
-avg probe count: 1.0099load factor: 0.282503 max chain length: 4
-before rehashing from size: 20011 to size: 40031
-avg probe count: 1.03613 load factor: 0.237166 max chain length: 6
-after rehashing from size: 20011 to size: 40031
-avg probe count: 1.01085load factor: 0.237166 max chain length: 5
-before rehashing from size: 20011 to size: 40031
-avg probe count: 1.02275 load factor: 0.186705 max chain length: 6
-after rehashing from size: 20011 to size: 40031
-avg probe count: 1.00562load factor: 0.186705 max chain length: 4
+avg probe count: 1.0755 load factor: 0.726691 max chain length: 6
  ____________________________________________________________________
 | Hash       | Collision         | Hash Function 1 | Hash Function 2 |
 | Table Size | Resolution Method | Colls. | Probes | Colls. | Probes |
 |____________________________________________________________________|
-| N = 5000   | Separate Chaining |  1271    1.110  |  2501    1.221  | 
-|            | Double Hashing    |  3706    1.340  |  3865    1.366  | 
-|            | Custom Probing    |  3742    1.426  |  3885    1.410  | 
+| N = 5000   | Separate Chaining |  5059    1.543  |  5020    1.510  | 
+|            | Double Hashing    |  3860    1.340  |  3791    1.312  | 
+|            | Custom Probing    |  3773    1.356  |  3796    1.406  | 
 |____________________________________________________________________|
-| N = 10000  | Separate Chaining |  1271    1.116  |  2501    1.255  | 
-|            | Double Hashing    |  3786    1.334  |  3895    1.354  | 
-|            | Custom Probing    |  3713    1.353  |  3884    1.375  | 
+| N = 10000  | Separate Chaining |  5059    1.506  |  5020    1.530  | 
+|            | Double Hashing    |  3776    1.347  |  3857    1.387  | 
+|            | Custom Probing    |  3765    1.391  |  3755    1.388  | 
 |____________________________________________________________________|
-| N = 20000  | Separate Chaining |  1250    1.141  |  1284    1.144  | 
-|            | Double Hashing    |  3886    1.379  |  3870    1.395  | 
-|            | Custom Probing    |  3913    1.389  |  3877    1.350  | 
+| N = 20000  | Separate Chaining |  2553    1.237  |  2519    1.232  | 
+|            | Double Hashing    |  3905    1.353  |  3870    1.425  | 
+|            | Custom Probing    |  3943    1.380  |  3947    1.368  | 
 |____________________________________________________________________|

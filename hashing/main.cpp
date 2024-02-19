@@ -50,7 +50,7 @@ int main(int argc, char const *argv[])
 {
     set<string> generatedStrings;
 
-    srand(time(0));
+    srand(static_cast<unsigned>(time(0)));
 
     for (int i = 0; i < numberOfStringsToGenerate; ++i)
     {
@@ -86,6 +86,15 @@ int main(int argc, char const *argv[])
 
             report[n][0][j - 1][0] = obj.collisions;
             report[n][0][j - 1][1] = (double)obj.probes / searchRandomly;
+
+            // cout<<"deletion started to test rehashing"<<endl;
+            // for (auto k : generatedStringsVector)
+            // {
+            //     if(obj.size>obj.initialSize){
+            //         obj.remove(k);
+            //     }
+                
+            // }
         }
         for (ll j = 1; j <= 2; j++)
         {
@@ -170,33 +179,3 @@ int main(int argc, char const *argv[])
 
     return 0;
 }
-
-// chaining obj(10,1,1);
-// obj.insert("apple",1);
-// obj.insert("hello",2);
-// obj.insert("abc",3);
-// obj.insert("cde",4);
-// obj.insert("efg",5);
-// obj.insert("ghi",6);
-// obj.insert("ieij",7);
-// obj.insert("yfsty",8);
-// obj.insert("idiudh",9);
-// obj.insert("deiuygsw",10);
-// obj.insert("srdrea",11);
-// obj.insert("gsuutsfu",12);
-
-// obj.print();
-
-// cout<<"adding more key and values: "<<endl;
-// obj.insert("giyguy",13);
-// obj.insert("bsuyiw",14);
-// obj.insert("sdvu",15);
-// obj.insert("susy",16);
-
-// obj.print();
-
-// cout<<"after removing"<<endl;
-// obj.remove("ghi");
-// obj.remove("hello");
-// obj.remove("efg");
-// obj.print();

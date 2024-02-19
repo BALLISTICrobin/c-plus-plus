@@ -55,13 +55,14 @@ public:
     vector<Node> hashTable;
     ll hashFunction;
     ll const c1 = 31, c2 = 33;
-
+    ll numOfInsertion;
     customProbing(ll N, ll hashFunction)
     {
         this->N = nextPrime(N);
         hashTable.resize(this->N);
         size = collisions = probes = 0;
         this->hashFunction = hashFunction;
+        this->numOfInsertion =0;
     }
 
     ll customProbe(string key, ll i)
@@ -71,7 +72,7 @@ public:
 
     void insert(string key, ll value)
     {
-        if ((size / N > 0.5) || (probes / size > 2))
+        if ((size / N > 0.5) || (numOfInsertion>1000 && probes / size > 2))
             reHash(1);
 
         ll i = 0, h, prev, offset = 0;
@@ -96,6 +97,7 @@ public:
 
         hashTable[h] = Node(key, value);
         size++;
+        numOfInsertion++;
     }
 
     void reHash(ll n)
@@ -111,10 +113,14 @@ public:
         size = 0;
         collisions = 0;
         probes = 0;
+        numOfInsertion=0;
         for (ll i = 0; i < oldN; i++)
         {
             if (temp[i].key != "")
-                insert(temp[i].key, temp[i].value);
+                {
+                    insert(temp[i].key, temp[i].value);
+                    numOfInsertion =0;
+                }
         }
     }
 
@@ -123,7 +129,7 @@ public:
         ll i = 0, h, prev, offset = 0;
         h = customProbe(key, i);
 
-        while (hashTable[h].key != "" && i < N)
+        while (i < N)
         {
             prev = h;
 
@@ -132,6 +138,8 @@ public:
                 probes++;
                 return hashTable[h].value;
             }
+            else
+                probes++;
             h = (offset + customProbe(key, ++i)) % N;
 
             if (h == prev)
@@ -139,8 +147,7 @@ public:
                 offset++;
                 i = 0;
             }
-            else
-                probes++;
+            
         }
 
         return -1;
